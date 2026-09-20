@@ -124,16 +124,16 @@ module tb_axi4_master #(parameter int DW = 256, parameter int IDW = 6) (
       len     = $urandom_range(7);
       is_hole = ($urandom_range(9) == 0);
       if (is_hole) begin
-  a = hole + part;
-end else begin
-  // Two random draws, each in its own statement: combining them into
-  // one expression (as this line used to) triggers a lint tool's
-  // SIDEEFFECT check, since expression evaluation order isn't guaranteed.
-  int base_idx, off;
-  base_idx = $urandom_range(5);
-  off      = $urandom_range(15);
-  a = bases[base_idx] + part + (off * 32);
-end
+        a = hole + part;
+      end else begin
+        // Two random draws, each in its own statement: combining them into
+        // one expression (as this line used to) triggers a lint tool's
+        // SIDEEFFECT check, since expression evaluation order isn't guaranteed.
+        int base_idx, off;
+        base_idx = $urandom_range(5);
+        off      = $urandom_range(15);
+        a = bases[base_idx] + part + (off * 32);
+      end
       for (int i = 0; i <= len; i++) begin
         logic [DW-1:0] dd;
         for (int k = 0; k < DW / 32; k++) dd[k*32 +: 32] = $urandom;
@@ -160,4 +160,3 @@ end
 endmodule : tb_axi4_master
 
 `endif
-
