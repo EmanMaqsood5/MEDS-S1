@@ -27,6 +27,15 @@ lint_off -rule UNUSEDPARAM -file "*meds_s1_axi4_pkg.sv"
 // w_captured_last_i is carried so a protocol checker can compare the two later.
 lint_off -rule UNUSEDSIGNAL -file "*meds_s1_axi4_b_ch.sv" -match "*w_captured_last_i*"
 
+// meds_s1_axi4_to_axil finds the last beat by counting AWLEN+1 beats, same
+// reasoning as meds_s1_axi4_b_ch above; wlast_i is carried but not checked.
+lint_off -rule UNUSEDSIGNAL -file "*meds_s1_axi4_to_axil.sv" -match "*wlast_i*"
+
+// r_end is computed at full address width but only its word-select bits
+// [4:2] are ever read (which 32-bit word of the 32-byte line a beat's last
+// byte falls in); the rest of the arithmetic result is intentionally unused.
+lint_off -rule UNUSEDSIGNAL -file "*meds_s1_axi4_to_axil.sv" -match "*r_end*"
+
 // Testbenches legitimately declare signals that only some test paths drive, and
 // deliberately mix widths when building corner-case stimulus.
 lint_off -rule UNUSEDSIGNAL -file "*verif/unit/*"
