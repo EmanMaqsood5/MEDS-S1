@@ -22,7 +22,7 @@ Internally it is five small modules, one per AXI channel:
 `meds_s1_axil_b_ch` performs the write and answers B; `meds_s1_axil_r_ch` performs the read and
 answers R.
 
-![internal structure](figures/meds_s1_axil_reg_protocol-internal.svg)
+![internal structure](figures/meds_s1_axil_reg_protocol-internal.png)
 
 ## Interface contract
 
@@ -62,7 +62,7 @@ READY, the next AW / AR can already be captured.
 
 ## Behaviour
 
-![channel FSMs](figures/meds_s1_axil_reg_protocol-fsms.svg)
+![channel FSMs](figures/meds_s1_axil_reg_protocol-fsms.png)
 
 Capture modules: IDLE (READY high) → CAPTURED on VALID → back to IDLE when B_CH / R_CH consumes the
 request. B_CH: IDLE → COMMIT (AW and W both captured) → RESP (pulse `wr_en_o`, choose OKAY/SLVERR)

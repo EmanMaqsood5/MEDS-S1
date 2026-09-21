@@ -20,7 +20,7 @@ Internally: `meds_s1_axi4_aw_ch`, `meds_s1_axi4_w_ch`, `meds_s1_axi4_ar_ch` capt
 `meds_s1_axi4_b_ch` sequences the write beats and answers one B; `meds_s1_axi4_r_ch` sequences the
 read beats and answers one R per beat.
 
-![internal structure](figures/meds_s1_axi4_reg_protocol-internal.svg)
+![internal structure](figures/meds_s1_axi4_reg_protocol-internal.png)
 
 ## Interface contract
 
@@ -56,7 +56,7 @@ is waiting for BREADY.
 
 ## Behaviour
 
-![channel FSMs](figures/meds_s1_axi4_reg_protocol-fsms.svg)
+![channel FSMs](figures/meds_s1_axi4_reg_protocol-fsms.png)
 
 B_CH: IDLE → BEAT when AW is captured; in BEAT, each captured W beat pulses `wr_en_o` and steps the
 address with `axi_next_addr()`; after beat `AWLEN` → RESP → IDLE on BREADY. R_CH: IDLE → LOOKUP
