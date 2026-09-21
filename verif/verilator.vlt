@@ -27,6 +27,14 @@ lint_off -rule UNUSEDPARAM -file "*meds_s1_axi4_pkg.sv"
 // w_captured_last_i is carried so a protocol checker can compare the two later.
 lint_off -rule UNUSEDSIGNAL -file "*meds_s1_axi4_b_ch.sv" -match "*w_captured_last_i*"
 
+// meds_s1_axi4_crossbar's internal x_* buses are NSI-wide (NUM_SLAVES + 1),
+// the extra slot being the internal DECERR sink. meds_s1_axi4_decerr_sink
+// deliberately has no awaddr/awlen/awsize/awburst/araddr/arsize/arburst/
+// wdata/wstrb ports -- it discards a rejected access without inspecting any
+// of that -- so the DECERR-sink slice of those per-slave arrays is always
+// driven and never read. Real slaves (index 0..NUM_SLAVES-1) use every bit.
+lint_off -rule UNUSEDSIGNAL -file "*meds_s1_axi4_crossbar.sv"
+
 // meds_s1_axi4_to_axil finds the last beat by counting AWLEN+1 beats, same
 // reasoning as meds_s1_axi4_b_ch above; wlast_i is carried but not checked.
 lint_off -rule UNUSEDSIGNAL -file "*meds_s1_axi4_to_axil.sv" -match "*wlast_i*"
